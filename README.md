@@ -12,7 +12,6 @@ A local business centered social network, where everything you need is <strong>C
 - Firebase (Authentication, Storage, Firestore)
 - MapKit
 - Core Animation
-- Something
 
 ## What I learned
 - This was my first <b>big</b> project using SwiftUI, so I learned a lot of SwiftUI.
