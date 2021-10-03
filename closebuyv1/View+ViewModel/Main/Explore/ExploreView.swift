@@ -121,8 +121,8 @@ struct ExploreView: View {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundColor(.gray)
                         })
-                        .transition(.opacity)
-                        .animation(.easeIn, value: 0.5)
+                            .transition(.opacity)
+                            .animation(.easeIn, value: 0.5)
                     }
                 }
                 .onTapGesture {
@@ -140,9 +140,9 @@ struct ExploreView: View {
                     }, label: {
                         Text("Cancel")
                     })
-                    .padding(.horizontal, 5)
-                    .transition(.move(edge: .trailing))
-                    .animation(.easeIn, value: 0.5)
+                        .padding(.horizontal, 5)
+                        .transition(.move(edge: .trailing))
+                        .animation(.easeIn, value: 0.5)
                 }
             }
             
@@ -155,13 +155,13 @@ struct ExploreView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 10)
                     
-                    LazyVStack(alignment: .leading, spacing: 8) {
-                    
+                    LazyVStack(alignment: .leading, spacing: 12) {
+                        
                         ForEach(filteredUsers) { user in
                             NavigationLink (
                                 destination: LazyView(ProfileView(viewModel: ProfileView.ViewModel(profileState: .user(user: user)))),
                                 label: {
-                                LazyView(ProfileCell(viewModel: ProfileCell.ViewModel(user: user)))
+                                    LazyView(ProfileCell(viewModel: ProfileCell.ViewModel(user: user)))
                                 }
                             )
                         }
@@ -169,19 +169,7 @@ struct ExploreView: View {
                     
                 }
                 .padding(.top, 10)
-                
-                VStack {
-                    Text("Posts")
-                        .font(.system(size: 24, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 10)
-                    
-                    LazyVGrid(columns: [GridItem(.flexible(minimum: 0), spacing: 5), GridItem(.flexible(minimum: 0), spacing: 5)], alignment: .leading, spacing: 5) {
-                        ForEach(filteredPosts) { post in
-                            PostCell(post: post)
-                        }
-                    }
-                }
+            
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -195,7 +183,7 @@ struct ExploreView: View {
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ExploreView()
+            ExploreView(viewModel: ExploreView.ViewModel(searchField: ""))
         }
     }
 }
@@ -230,17 +218,20 @@ struct PostCell: View {
                 .frame(height: 125)
                 .clipped()
             
-            Text("\(2)")
-                .font(.system(size: 21, weight: .bold))
-                .foregroundColor(.white)
-                .frame(width: 25, height: 25)
-                .padding(10)
-                .background(Color.black.opacity(0.5))
-                .clipShape(Circle())
-                .padding(5)
+            VStack {
+                Image(systemName: "heart")
+                Text("\(2)")
+            }
+            .font(.system(size: 21, weight: .bold))
+            .foregroundColor(.white)
+            .frame(width: 25, height: 25)
+            .padding(10)
+            .background(Color.black.opacity(0.5))
+            .clipShape(Circle())
+            .padding(5)
         }
         .clipped()
-        .cornerRadius(0)
+        .cornerRadius(10)
     }
 }
 

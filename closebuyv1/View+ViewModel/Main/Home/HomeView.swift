@@ -71,8 +71,7 @@ struct HomeView: View {
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal, 15)
-            .padding(.vertical, 5)
-            .padding(.bottom, 10)
+            .padding(.vertical, 15)
             
             CustomTabView(selected: $selected, selectedItems: ["Following", "Near you"])
             
