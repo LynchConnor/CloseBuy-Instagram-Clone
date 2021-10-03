@@ -22,8 +22,6 @@ struct ProfileView: View {
     }
     
     var isFollowing: Bool { return viewModel.user?.isFollowing != false }
-
-    var isNotified: Bool { return viewModel.user?.isNotified != false }
     
     //MARK: Body
     var body: some View {
@@ -79,17 +77,6 @@ struct ProfileView: View {
                                 
                                 if user.isBusiness && !(user.isCurrentUser) {
                                     HStack {
-                                        
-                                        Button {
-                                            
-                                        } label: {
-                                            Image(isNotified ? "bell.inactive" : "bell.active")
-                                        }
-                                        .padding(10)
-                                        .overlay(
-                                            Circle()
-                                                .stroke(SYSTEM_GREEN, lineWidth: 3)
-                                        )
 
                                         
                                         Button {

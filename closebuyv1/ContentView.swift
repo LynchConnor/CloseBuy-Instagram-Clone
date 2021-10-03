@@ -8,9 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            VStack {
+                switch viewModel.authState {
+                case .signedIn:
+                    TabBarView()
+                case .loading:
+                    VStack {
+                    ProgressView()
+                        Button {
+                            AuthViewModel.shared.signOut()
+                        } label: {
+                            Text("Sign out")
+                        }
+
+                    }
+                    
+                case .signedOut:
+                    OnboardingView()
+                }
+            }
+        }
     }
 }
 

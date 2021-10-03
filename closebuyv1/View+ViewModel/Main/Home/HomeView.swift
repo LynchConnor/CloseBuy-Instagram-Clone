@@ -33,7 +33,7 @@ struct HomeView: View {
     private var iconURL: String? { return AuthViewModel.shared.currentUser?.profile.profileIconURL ?? nil }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 NavigationLink {
                     SettingsView()
@@ -72,11 +72,19 @@ struct HomeView: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal, 15)
             .padding(.vertical, 5)
+            .padding(.bottom, 10)
             
             CustomTabView(selected: $selected, selectedItems: ["Following", "Near you"])
             
-            FeedView()
-                .environmentObject(locationManager)
+            if selected == "Following" {
+                FeedView()
+                    .environmentObject(locationManager)
+            }else if selected == "Near you" {
+                FeedView()
+                    .environmentObject(locationManager)
+            }else{
+                Text("Unable to fetch data")
+            }
         }
         .overlay(
             VStack(spacing: 0) {

@@ -24,8 +24,6 @@ struct User: Identifiable, Codable {
     
     var isFollowing: Bool?
     
-    var isNotified: Bool?
-    
     var isBusiness: Bool { return business != nil }
     
     var isCurrentUser: Bool { return id == AuthViewModel.shared.currentUser?.id }
