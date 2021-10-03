@@ -21,7 +21,8 @@ extension PostView {
         
         func likePost(){
             self.post.isLiked = true
-            PostService.likePost(withId: post.id ?? "") { [weak self] error in
+            self.post.likes += 1
+            PostService.likePost(withId: post.id ?? "", likes: post.likes) { [weak self] error in
                 if let _ = error {
                     self?.post.isLiked = false
                 }
@@ -30,7 +31,8 @@ extension PostView {
         
         func unLikePost(){
             self.post.isLiked = false
-            PostService.likePost(withId: post.id ?? "") { [weak self] error in
+            self.post.likes -= 1
+            PostService.unlikePost(withId: post.id ?? "", likes: post.likes) { [weak self] error in
                 if let _ = error {
                     self?.post.isLiked = true
                 }
@@ -113,7 +115,6 @@ struct PostView: View {
                     .cornerRadius(10, corners: [.topRight])
                 
                 //MARK: Business distance from user
-                
                 HStack(spacing: 2) {
                     Image("location.pin")
                         .resizable()
@@ -152,19 +153,28 @@ struct PostView: View {
                                 .foregroundColor(.white)
                                 .font(.system(size: 14))
                                 .lineSpacing(3)
+                                .lineLimit(3)
                             
                             Spacer()
                             
-                            Button(action: {
-                                isLiked ? viewModel.unLikePost() : viewModel.likePost()
-                            }, label: {
-                                Image(systemName: isLiked ? "heart.fill" : "heart")
-                                    .foregroundColor(isLiked ? .red : .white)
-                                    .font(.system(size: 21, weight: .semibold))
-                                    .padding(10)
-                            })
+                            VStack(spacing: -5) {
+                                
+                                Button(action: {
+                                    isLiked ? viewModel.unLikePost() : viewModel.likePost()
+                                }, label: {
+                                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                                        .foregroundColor(isLiked ? .red : .white)
+                                        .font(.system(size: 21, weight: .semibold))
+                                        .padding(10)
+                                })
+                                
+                                Text("\(viewModel.post.likes)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(5)
                             .background(Color.black.opacity(0.5))
-                            .clipShape(Circle())
+                            .cornerRadius(15)
                         }
                         .padding(12)
                         .frame(maxWidth: .infinity)

@@ -14,7 +14,7 @@ struct MapView: View {
     @EnvironmentObject var locationManager: LocationManager
     
     var body: some View {
-        Map(coordinateRegion: $locationManager.currentRegion, interactionModes: .all, showsUserLocation: true)
+        Map(coordinateRegion: $locationManager.currentRegion, interactionModes: .all, showsUserLocation: true, userTrackingMode: .none)
             .edgesIgnoringSafeArea(.all)
             .navigationTitle("")
             .navigationBarHidden(true)

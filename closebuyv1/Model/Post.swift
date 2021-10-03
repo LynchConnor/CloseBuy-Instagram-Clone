@@ -19,6 +19,8 @@ struct Post: Identifiable, Codable {
     
     var isLiked: Bool?
     
+    var likes: Int
+    
     var date: Timestamp = .init()
     
     let user: ProfileDetails
@@ -31,4 +33,4 @@ struct ProfileDetails: Codable {
     var location: GeoPoint?
 }
 
-let POST_EXAMPLE = Post(title: "", caption: "", imageURL: "https://firebasestorage.googleapis.com:443/v0/b/closebuyv1.appspot.com/o/AF4D5D26-0063-4598-B870-94AE7866F5AC?alt=media&token=420c3a76-e531-4832-80fa-be135ac405ca", user: ProfileDetails(id: "YHqaSKnll4hw2rJLjzcPgyDjFEP2", displayName: "Babybakes", iconURL: ""))
+let POST_EXAMPLE = Post(title: "", caption: "", imageURL: "https://firebasestorage.googleapis.com:443/v0/b/closebuyv1.appspot.com/o/AF4D5D26-0063-4598-B870-94AE7866F5AC?alt=media&token=420c3a76-e531-4832-80fa-be135ac405ca", likes: 5, user: ProfileDetails(id: "YHqaSKnll4hw2rJLjzcPgyDjFEP2", displayName: "Babybakes", iconURL: ""))

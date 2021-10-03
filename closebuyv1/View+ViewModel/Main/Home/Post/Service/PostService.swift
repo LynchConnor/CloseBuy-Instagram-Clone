@@ -8,17 +8,26 @@
 import Foundation
 
 struct PostService {
-    static func likePost(withId postId: String, completion: @escaping (Error?) -> ()){
+    
+    static func likePost(withId postId: String, likes: Int, completion: @escaping (Error?) -> ()){
         let userId = AuthViewModel.shared.currentId
-        COLLECTION_USERS.document(userId).collection("userLikes").document(postId).setData([:]) { error in
-            completion(error)
+        COLLECTION_POSTS.document(postId).collection("postLikes").document(userId).setData([:]){ error in
+            COLLECTION_USERS.document(userId).collection("userLikes").document(postId).setData([:]) { error in
+                COLLECTION_POSTS.document(postId).updateData(["likes": likes]) { _ in
+                    completion(error)
+                }
+            }
         }
     }
     
-    static func unlikePost(withId postId: String, completion: @escaping (Error?) -> ()){
+    static func unlikePost(withId postId: String, likes: Int, completion: @escaping (Error?) -> ()){
         let userId = AuthViewModel.shared.currentId
-        COLLECTION_USERS.document(userId).collection("userLikes").document(postId).delete() { error in
-            completion(error)
+        COLLECTION_POSTS.document(postId).collection("postLikes").document(userId).delete() { _ in
+            COLLECTION_USERS.document(userId).collection("userLikes").document(postId).delete() { error in
+                COLLECTION_POSTS.document(postId).updateData(["likes": likes]) { _ in
+                    completion(error)
+                }
+            }
         }
     }
     

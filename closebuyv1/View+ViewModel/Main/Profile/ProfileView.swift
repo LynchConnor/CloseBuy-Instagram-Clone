@@ -156,6 +156,17 @@ struct ProfileView: View {
                                 .padding(.top, 5)
                             }
                             .padding(.top, 5)
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHStack {
+                                    ForEach(1...5, id: \.self){ post in
+                                        Image("bakery")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 200, height: 100)
+                                    }
+                                }
+                            }
                         }
                         .padding(15)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -179,36 +190,10 @@ struct ProfileView: View {
                             
                             Spacer()
                             
-                            Menu {
-                                
-                                if user.isCurrentUser {
-                                    
-                                    Section {
-                                        Button {
-                                            withAnimation {
-                                                editIsActive.toggle()
-                                            }
-                                        } label: {
-                                            Text("Edit profile")
-                                        }
-                                    }
-                                    
-                                }
-                            } label: {
-                                Image("ellipsis.horizontal")
-                                
-                            }
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                            .padding(8)
-                            .background(Color.black.opacity(0.65))
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                            
                         }
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(y: -(proxy.frame(in: .global).minY) + 25)
+                        .padding(10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .offset(y: -(proxy.frame(in: .global).minY) + 25)
                         ,alignment: .top
                     )
                 }
