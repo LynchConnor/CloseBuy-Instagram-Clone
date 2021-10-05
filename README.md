@@ -18,6 +18,8 @@ A local business centered social network, where everything you need is <strong>C
 ## Screenshots
 ![Simulator Screen Recording - iPhone 11 - 2021-10-06 at 00 45 57](https://user-images.githubusercontent.com/91622555/136117855-e97822fc-8136-4caa-8470-098f9d73b587.gif)
 
+![Simulator Screen Recording - iPhone 11 - 2021-10-06 at 00 49 30](https://user-images.githubusercontent.com/91622555/136118391-2a25d437-549a-40d1-9f6c-320f3f5951e9.gif)
+
 ## What I learned
 - This was my first <b>big</b> project using SwiftUI, so I learned a lot of SwiftUI.
 - I increased my understanding of database management and models, as well as the use of third party frameworks like Firebase.
