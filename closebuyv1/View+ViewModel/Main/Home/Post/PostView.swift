@@ -65,19 +65,28 @@ struct PostView: View {
         return isLiked
     }
     
+    private static let suffix = ["", "K", "M"]
+
+    public static func formatNumber(_ number: Double) -> String{
+       var index = 0
+       var value = number
+       while((value / 1000) >= 1){
+           value = value / 1000
+           index += 1
+       }
+       return String(format: "%.1f%@", value, suffix[index])
+    }
+    
     var distance: String {
-        
-        let formatter = MeasurementFormatter()
         
         guard let locationA = viewModel.post.user.location else { return "0" }
         guard let locationB = locationManager.currentLocation else { return "0" }
         
         let distance = locationB.distance(from: CLLocation(latitude: locationA.latitude, longitude: locationA.longitude))
         
-        formatter.unitStyle = .short
-        let distanceInMetres = Measurement(value: Double(distance), unit: UnitLength.kilometers)
+        return "\(PostView.formatNumber(distance)) metres"
         
-        return "\(formatter.string(from: distanceInMetres))"
+        
     }
     
     var body: some View {

@@ -135,10 +135,10 @@ struct ProfileView: View {
                                 
                             }
                             
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 
                                 Text(viewModel.user?.displayName ?? "")
-                                    .font(.system(size: 21, weight: .bold))
+                                    .font(.system(size: 22, weight: .bold))
                                     .foregroundColor(SYSTEM_BLACK)
                                 
                                 HStack(spacing: 5) {
@@ -167,44 +167,32 @@ struct ProfileView: View {
                                     .foregroundColor(SYSTEM_BLACK)
                                     .multilineTextAlignment(.leading)
                                     .fixedSize(horizontal: false, vertical: true)
-                                
-                                HStack(spacing: 2) {
-                                    Image("location.pin")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 15, height: 12)
-                                        .foregroundColor(.secondary)
-                                }
-                                .padding(.top, 5)
                             }
                             //MARK: VStack
                             .padding(.vertical, 5)
+                            .padding(.top, 10)
                             
                             if user.isCurrentUser {
                                 
-                                VStack(spacing: 5) {
+                                VStack(spacing: 8) {
                                     
                                     Text("Liked Posts")
                                         .bold()
                                     
                                     Rectangle()
-                                        .frame(height: 2)
+                                        .frame(width: 200, height: 1.5)
                                         .background(Color.gray)
                                         .foregroundColor(Color.gray)
                                     
                                     LazyVGrid(columns: [ GridItem(.flexible(minimum: 0)), GridItem(.flexible(minimum: 0)) ]) {
-                                        ForEach(viewModel.posts){ post in
-                                            WebImage(url: URL(string: post.imageURL))
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(height: 150)
-                                                .cornerRadius(5)
+                                        ForEach($viewModel.posts){ $post in
+                                            ProfilePostCell(post: $post)
                                         }
                                     }
                                     .padding(.vertical, 10)
                                     
                                 }
-                                .padding(.top, 10)
+                                .padding(.top, 25)
                                 
                             }
                         }
@@ -235,5 +223,72 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         ProfileView(viewModel: ProfileView.ViewModel(profileState: .user(user: user)))
+    }
+}
+
+struct ProfilePostCell: View {
+    
+    @Binding var post: Post
+    
+    init(post: Binding<Post>){
+        _post = post
+        isLiked()
+    }
+    
+    var hasLiked: Bool { guard let isLiked = post.isLiked else { return false }
+        return isLiked
+    }
+    
+    func likePost(){
+        post.isLiked = true
+        post.likes += 1
+        PostService.likePost(withId: post.id ?? "", likes: post.likes) { error in
+            if let _ = error {
+                self.post.isLiked = false
+            }
+        }
+    }
+    
+    func unLikePost(){
+        self.post.isLiked = false
+        self.post.likes -= 1
+        PostService.unlikePost(withId: post.id ?? "", likes: post.likes) { error in
+            if let _ = error {
+                self.post.isLiked = true
+            }
+        }
+    }
+    
+    private func isLiked(){
+        guard let id = post.id else { return }
+        PostService.isLiked(withId: id) { response in
+            self.post.isLiked = response
+        }
+    }
+    
+    
+    var body: some View {
+        
+        ZStack(alignment: .bottomTrailing) {
+            
+            WebImage(url: URL(string: post.imageURL))
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 150)
+                .cornerRadius(5)
+            
+            Button {
+                hasLiked ? unLikePost() : likePost()
+            } label: {
+                Image(systemName: hasLiked ? "heart.fill" : "heart")
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fill)
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(hasLiked ? Color.red : Color.white)
+            }
+            .padding(10)
+
+            
+        }
     }
 }

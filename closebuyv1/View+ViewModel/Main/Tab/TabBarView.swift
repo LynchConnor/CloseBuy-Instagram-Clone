@@ -28,11 +28,6 @@ struct TabBarView: View {
                 .tabItem {
                     Image(systemName: "map")
                 }
-            
-            FavouriteView()
-                .tabItem {
-                    Image(systemName: "heart")
-                }
         }
         
         .navigationTitle("")

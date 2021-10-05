@@ -153,7 +153,7 @@ struct ExploreView: View {
                     Text("Users")
                         .font(.system(size: 24, weight: .semibold))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 10)
+                        .padding(.vertical, 10)
                     
                     LazyVStack(alignment: .leading, spacing: 12) {
                         
