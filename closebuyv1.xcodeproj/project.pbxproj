@@ -22,6 +22,8 @@
 		E03A746426F14E880075A687 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03A746326F14E880075A687 /* ImagePicker.swift */; };
 		E03A746626F15B820075A687 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03A746526F15B820075A687 /* ImageUploader.swift */; };
 		E04836E427010306000BE0DE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04836E327010306000BE0DE /* LocationManager.swift */; };
+		E07567C3270BA6AE00CBF376 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = E07567C2270BA6AE00CBF376 /* GeoFire */; };
+		E07567C5270BA6AE00CBF376 /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = E07567C4270BA6AE00CBF376 /* GeoFireUtils */; };
 		E075E81C26F51AC500F37435 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075E81B26F51AC500F37435 /* MapView.swift */; };
 		E075E81F26F5399500F37435 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075E81E26F5399500F37435 /* EditProfileView.swift */; };
 		E075E82126F53A8400F37435 /* AutoSizeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075E82026F53A8400F37435 /* AutoSizeTextField.swift */; };
@@ -31,6 +33,7 @@
 		E08B04CF26EFFCEA00053586 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08B04CE26EFFCEA00053586 /* ProfileService.swift */; };
 		E09E589E270A5C1E000F44B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E09E589D270A5C1E000F44B0 /* GoogleService-Info.plist */; };
 		E09E58A0270A5CCB000F44B0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E09E589F270A5CCB000F44B0 /* README.md */; };
+		E09E58A3270A718E000F44B0 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09E58A2270A718E000F44B0 /* FavouriteView.swift */; };
 		E0BD307E26EC1492006769E5 /* closebuyv1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BD307D26EC1492006769E5 /* closebuyv1App.swift */; };
 		E0BD308026EC1492006769E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BD307F26EC1492006769E5 /* ContentView.swift */; };
 		E0BD308226EC1492006769E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BD308126EC1492006769E5 /* Assets.xcassets */; };
@@ -75,6 +78,7 @@
 		E08B04CE26EFFCEA00053586 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		E09E589D270A5C1E000F44B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E09E589F270A5CCB000F44B0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E09E58A2270A718E000F44B0 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
 		E0BD307A26EC1492006769E5 /* closebuyv1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = closebuyv1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BD307D26EC1492006769E5 /* closebuyv1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closebuyv1App.swift; sourceTree = "<group>"; };
 		E0BD307F26EC1492006769E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 				E0BD309926EC158B006769E5 /* FirebaseStorageSwift-Beta in Frameworks */,
 				E0BD309526EC158B006769E5 /* FirebaseAnalyticsSwift-Beta in Frameworks */,
 				E0BD309126EC158B006769E5 /* FirebaseFirestore in Frameworks */,
+				E07567C3270BA6AE00CBF376 /* GeoFire in Frameworks */,
+				E07567C5270BA6AE00CBF376 /* GeoFireUtils in Frameworks */,
 				E0BD309726EC158B006769E5 /* FirebaseAnalytics in Frameworks */,
 				E00EC62626F2B7A200E0A439 /* SDWebImageSwiftUI in Frameworks */,
 				E0BD309326EC158B006769E5 /* FirebaseFirestoreSwift-Beta in Frameworks */,
@@ -156,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				E0D9426626EE94A30064C16E /* RefreshScrollView.swift */,
+				E09E58A1270A7180000F44B0 /* Favourite */,
 				E0215BE426EC29DA0055CDCC /* Tab */,
 				E0215BE126EC27E10055CDCC /* Home */,
 				E08B04C426EFBEEA00053586 /* Explore */,
@@ -241,6 +248,14 @@
 				E08B04CC26EFFCC200053586 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E09E58A1270A7180000F44B0 /* Favourite */ = {
+			isa = PBXGroup;
+			children = (
+				E09E58A2270A718E000F44B0 /* FavouriteView.swift */,
+			);
+			path = Favourite;
 			sourceTree = "<group>";
 		};
 		E0BD307126EC1492006769E5 = {
@@ -375,6 +390,8 @@
 				E0BD309A26EC158B006769E5 /* FirebaseStorage */,
 				E0BD309C26EC158B006769E5 /* FirebaseAuth */,
 				E00EC62526F2B7A200E0A439 /* SDWebImageSwiftUI */,
+				E07567C2270BA6AE00CBF376 /* GeoFire */,
+				E07567C4270BA6AE00CBF376 /* GeoFireUtils */,
 			);
 			productName = closebuyv1;
 			productReference = E0BD307A26EC1492006769E5 /* closebuyv1.app */;
@@ -406,6 +423,7 @@
 			packageReferences = (
 				E0BD308F26EC158B006769E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E00EC62426F2B7A100E0A439 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				E07567C1270BA6AD00CBF376 /* XCRemoteSwiftPackageReference "geofire-objc" */,
 			);
 			productRefGroup = E0BD307B26EC1492006769E5 /* Products */;
 			projectDirPath = "";
@@ -457,6 +475,7 @@
 				E00B02CD26FBCF9C00AF8608 /* CustomPageView.swift in Sources */,
 				E08B04C626EFBEF900053586 /* ExploreView.swift in Sources */,
 				E00BC75526F1474A00D21D6A /* ExploreService.swift in Sources */,
+				E09E58A3270A718E000F44B0 /* FavouriteView.swift in Sources */,
 				E0DCFB8126F20286002F84A6 /* CreateProfileView.swift in Sources */,
 				E0ECBDEA26F401F700F1955E /* PostService.swift in Sources */,
 				E00BC75226F1454200D21D6A /* FeedService.swift in Sources */,
@@ -665,6 +684,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		E07567C1270BA6AD00CBF376 /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/geofire-objc";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		E0BD308F26EC158B006769E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -680,6 +707,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E00EC62426F2B7A100E0A439 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		E07567C2270BA6AE00CBF376 /* GeoFire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07567C1270BA6AD00CBF376 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFire;
+		};
+		E07567C4270BA6AE00CBF376 /* GeoFireUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E07567C1270BA6AD00CBF376 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFireUtils;
 		};
 		E0BD309026EC158B006769E5 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;

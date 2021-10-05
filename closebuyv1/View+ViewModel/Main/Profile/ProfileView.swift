@@ -28,24 +28,46 @@ struct ProfileView: View {
         
         if let user = viewModel.user {
             
-            ScrollView(showsIndicators: false){
+            VStack {
                 
-                GeometryReader { proxy in
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .offset(x: -1)
+                            .font(.system(size: 17, weight: .semibold))
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 16, height: 16)
+                            .padding(10)
+                    })
+                        .foregroundColor(.black)
+                        .clipShape(Circle())
+                    
+                    Spacer()
+                    
+                }
+                .padding(.horizontal, 5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .zIndex(-1)
+                
+                ScrollView(showsIndicators: false){
                     
                     VStack(spacing: 0) {
                         
                         ZStack(alignment: .bottomLeading) {
                             
-                            StretchingHeader(height: 125) {
+                            StretchingHeader(height: 150) {
                                 ZStack {
                                     if let bannerURL = viewModel.user?.profile.bannerURL {
                                         WebImage(url: URL(string: bannerURL))
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                     }else{
-                                        
                                         Image("bakery")
                                             .resizable()
+                                            .redacted(reason: .placeholder)
                                             .aspectRatio(contentMode: .fill)
                                     }
                                 }
@@ -77,19 +99,22 @@ struct ProfileView: View {
                                 
                                 if user.isBusiness && !(user.isCurrentUser) {
                                     HStack {
-
+                                        
                                         
                                         Button {
                                             isFollowing ? viewModel.unfollowUser() : viewModel.followUser()
                                         } label: {
                                             Text(isFollowing ? "Unfollow" : "Follow")
-                                                .font(.system(size: 16, weight: .semibold))
-                                                .foregroundColor(.white)
+                                                .font(.system(size: 14, weight: .semibold))
+                                                .frame(width: 175, height: 40)
+                                                .foregroundColor(isFollowing ? Color.black : Color.white)
+                                                .background(isFollowing ? Color.white : Color.blue)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 3)
+                                                        .stroke(Color.gray, lineWidth: isFollowing ? 1 : 0)
+                                                )
                                         }
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal)
-                                        .background(SYSTEM_GREEN)
-                                        .cornerRadius(10)
+                                        .cornerRadius(3)
                                     }
                                     
                                 }else{
@@ -97,13 +122,14 @@ struct ProfileView: View {
                                         editIsActive.toggle()
                                     } label: {
                                         Text("Edit profile")
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
+                                            .frame(width: 150, height: 40)
+                                            .font(.system(size: 14, weight: .semibold))
+                                            .foregroundColor(.black)
                                     }
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal)
-                                    .background(SYSTEM_GREEN)
-                                    .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 3)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
                                 }
                                 
                                 
@@ -148,57 +174,44 @@ struct ProfileView: View {
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 15, height: 12)
                                         .foregroundColor(.secondary)
-                                    
-                                    Text("357 Rayne Road, London, CM7 2QQ")
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.secondary)
                                 }
                                 .padding(.top, 5)
                             }
-                            .padding(.top, 5)
+                            //MARK: VStack
+                            .padding(.vertical, 5)
                             
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack {
-                                    ForEach(1...5, id: \.self){ post in
-                                        Image("bakery")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 200, height: 100)
+                            if user.isCurrentUser {
+                                
+                                VStack(spacing: 5) {
+                                    
+                                    Text("Liked Posts")
+                                        .bold()
+                                    
+                                    Rectangle()
+                                        .frame(height: 2)
+                                        .background(Color.gray)
+                                        .foregroundColor(Color.gray)
+                                    
+                                    LazyVGrid(columns: [ GridItem(.flexible(minimum: 0)), GridItem(.flexible(minimum: 0)) ]) {
+                                        ForEach(viewModel.posts){ post in
+                                            WebImage(url: URL(string: post.imageURL))
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(height: 150)
+                                                .cornerRadius(5)
+                                        }
                                     }
+                                    .padding(.vertical, 10)
+                                    
                                 }
+                                .padding(.top, 10)
+                                
                             }
                         }
                         .padding(15)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
-                    .overlay(
-                        HStack {
-                            Button(action: {
-                                presentationMode.wrappedValue.dismiss()
-                            }, label: {
-                                Image(systemName: "chevron.left")
-                                    .resizable()
-                                    .offset(x: -1)
-                                    .font(.system(size: 17, weight: .semibold))
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16, height: 16)
-                                    .padding(10)
-                            })
-                                .background(Color.black.opacity(0.65))
-                                .foregroundColor(.white)
-                                .clipShape(Circle())
-                            
-                            Spacer()
-                            
-                        }
-                        .padding(10)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .offset(y: -(proxy.frame(in: .global).minY) + 25)
-                        ,alignment: .top
-                    )
                 }
-                
-                
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)

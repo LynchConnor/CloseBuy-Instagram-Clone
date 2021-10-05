@@ -196,7 +196,7 @@ struct EditProfileView: View {
                         EditProfileService.updateDisplayname(name: displayName) {
                             viewModel.updateDisplayName(name: displayName)
                             
-                            if let icon = profileImage, let bannerImage = bannerImage {
+                            if let icon = profileImage {
                                 ImageUploader.uploadImage(image: icon, path: .icon) { url in
                                     EditProfileService.updateIcon(url: url) {
                                         print("DEBUG: Successfully uploaded image...")
@@ -206,7 +206,10 @@ struct EditProfileView: View {
 
                                         return
                                     }
+                                    return
                                 }
+                            }
+                            if let bannerImage = bannerImage {
                                 
                                 ImageUploader.uploadImage(image: bannerImage, path: .banner) { url in
                                     EditProfileService.updateBanner(url: url) {
@@ -215,13 +218,7 @@ struct EditProfileView: View {
                                         
                                         return
                                     }
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                    
-                                    isProcessing = false
-                                    
-                                    presentationMode.wrappedValue.dismiss()
+                                    return
                                 }
                             }
                             

@@ -13,15 +13,18 @@ enum ProfileState {
     case user(user: User)
 }
 
+
 extension ProfileView {
     class ViewModel: ObservableObject {
         @Published var profileState: ProfileState
         @Published var user: User?
+        @Published var posts: [Post]
         
-        init(profileState: ProfileState){
+        init(profileState: ProfileState, posts: [Post] = [Post]()){
             self.profileState = profileState
-            
+            self.posts = posts
             fetchUser()
+            fetchLikedPosts()
         }
         
         func updateBio(bio: String){
@@ -35,6 +38,46 @@ extension ProfileView {
             self.user?.profile.displayName = name
             if (user?.isCurrentUser) != nil {
                 AuthViewModel.shared.currentUser?.profile.displayName = name
+            }
+        }
+        
+        
+        func fetchLikedPosts(){
+            fetchPosts(completion: { [weak self] posts in
+                self?.posts = posts
+            })
+        }
+        
+        private func fetchPosts(completion: @escaping (([Post]) -> ())){
+            
+            let id = AuthViewModel.shared.currentId
+            
+            COLLECTION_USERS.document(id).collection("userLikes").getDocuments { snapshot, error in
+                if let error = error {
+                    self.posts = []
+                    print("DEBUG: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents, !(documents.isEmpty) else { self.posts = []; return }
+                
+                let id = documents.compactMap({ $0.documentID })
+                
+                COLLECTION_POSTS.whereField("__name__", in: id).getDocuments { snapshot, error in
+                    if let error = error {
+                        print("DEBUG: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let documents = snapshot?.documents, !(documents.isEmpty) else { return }
+                    
+                    do {
+                        try completion(documents.compactMap({ try $0.data(as:  Post.self) }))
+                    }catch {
+                        self.posts = []
+                        print("DEBUG: Error")
+                    }
+                }
             }
         }
         
