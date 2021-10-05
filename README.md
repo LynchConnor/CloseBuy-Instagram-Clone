@@ -29,7 +29,7 @@ A local business centered social network, where everything you need is <strong>C
 - This was my first <b>big</b> project using SwiftUI, so I learned a lot of SwiftUI.
 - I increased my understanding of database management and models, as well as the use of third party frameworks like Firebase.
 - Reusability of code to better the user experience.
-- Asynchronous data fetching
+- Asynchronous data fetching with completion blocks and error handling with try, catch blocks.
 
 ## Author Information
 - Twitter - [@connorLynchx](https://twitter.com/connorlynchx "Twitter")
