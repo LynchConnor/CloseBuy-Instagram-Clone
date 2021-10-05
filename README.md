@@ -1,4 +1,9 @@
 # CloseBuyApp
+
+## Screenshots
+![Simulator Screen Recording - iPhone 11 - 2021-10-06 at 00 45 57](https://user-images.githubusercontent.com/91622555/136117855-e97822fc-8136-4caa-8470-098f9d73b587.gif)
+
+
 ## Description
 A local business centered social network, where everything you need is <strong>CloseBuy</strong>.
 - Businesses can post to the app
