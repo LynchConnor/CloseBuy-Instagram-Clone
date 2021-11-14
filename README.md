@@ -1,4 +1,4 @@
-# CloseBuyApp
+# CloseBuyApp / Instagram Clone
 
 ## Description
 A local business centered social network, where everything you need is <strong>CloseBuy</strong>.
